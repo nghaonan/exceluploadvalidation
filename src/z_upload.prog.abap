@@ -197,7 +197,7 @@ endclass.
 
 parameters: p_serv radiobutton group rb1 default 'X' user-command cm1,
             p_locl radiobutton group rb1,
-            p_path type dxlpath OBLIGATORY.
+            p_path type dxlpath.
 
 at selection-screen on value-request for p_path.
   if p_serv = abap_true.
@@ -208,6 +208,11 @@ at selection-screen on value-request for p_path.
 
 initialization.
   create object: go_upload.
+
+at selection-screen.
+ if p_path is initial.
+    MESSAGE 'Please select a file.' TYPE 'E'.
+ endif.
 
 start-of-selection.
   if p_serv = abap_true.
